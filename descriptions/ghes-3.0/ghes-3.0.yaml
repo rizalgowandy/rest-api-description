@@ -32,6 +32,8 @@ tags:
   description: List emojis available to use on GitHub.
 - name: enterprise-admin
   description: Administer a GitHub enterprise.
+- name: dependabot
+  description: Endpoints to manage Dependabot.
 - name: gists
   description: View, modify your gists.
 - name: git
@@ -45,7 +47,7 @@ tags:
 - name: licenses
   description: View various OSS licenses.
 - name: markdown
-  description: Render Github flavored markdown
+  description: Render GitHub flavored markdown
 - name: meta
   description: Endpoints that give information about the API.
 - name: migrations
@@ -672,7 +674,7 @@ paths:
     patch:
       summary: Update LDAP mapping for a team
       description: |-
-        Updates the [distinguished name](https://www.ldap.com/ldap-dns-and-rdns) (DN) of the LDAP entry to map to a team. [LDAP synchronization](https://help.github.com/enterprise/admin/guides/user-management/using-ldap/#enabling-ldap-sync) must be enabled to map LDAP entries to a team. Use the [Create a team](https://docs.github.com/enterprise-server@3.0/rest/reference/teams/#create-a-team) endpoint to create a team with LDAP mapping.
+        Updates the [distinguished name](https://www.ldap.com/ldap-dns-and-rdns) (DN) of the LDAP entry to map to a team. [LDAP synchronization](https://docs.github.com/enterprise/admin/guides/user-management/using-ldap/#enabling-ldap-sync) must be enabled to map LDAP entries to a team. Use the [Create a team](https://docs.github.com/enterprise-server@3.0/rest/reference/teams/#create-a-team) endpoint to create a team with LDAP mapping.
 
         If you pass the `hellcat-preview` media type, you can also update the LDAP mapping of a child team.
       operationId: enterprise-admin/update-ldap-mapping-for-team
@@ -1690,7 +1692,7 @@ paths:
                   description: "**Required for built-in authentication.** The user's
                     email address. This parameter can be omitted when using CAS, LDAP,
                     or SAML. For details on built-in and centrally-managed authentication,
-                    see the the [GitHub authentication guide](https://help.github.com/enterprise/2.18/admin/guides/user-management/authenticating-users-for-your-github-enterprise-server-instance/)."
+                    see the the [GitHub authentication guide](https://docs.github.com/enterprise/2.18/admin/guides/user-management/authenticating-users-for-your-github-enterprise-server-instance/)."
               required:
               - login
             example:
@@ -2041,7 +2043,7 @@ paths:
     get:
       summary: Get an installation for the authenticated app
       description: |-
-        Enables an authenticated GitHub App to find an installation's information using the installation id. The installation's account type (`target_type`) will be either an organization or a user account, depending which account the repository belongs to.
+        Enables an authenticated GitHub App to find an installation's information using the installation id.
 
         You must use a [JWT](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
       tags:
@@ -2721,7 +2723,7 @@ paths:
       description: |-
         **Note**: The `:app_slug` is just the URL-friendly name of your GitHub App. You can find this on the settings page for your GitHub App (e.g., `https://github.com/settings/apps/:app_slug`).
 
-        If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
+        If the GitHub App you specify is public, you can access this endpoint without authenticating. If the GitHub App you specify is private, you must authenticate with a [personal access token](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line/) or an [installation access token](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-an-installation) to access this endpoint.
       tags:
       - apps
       operationId: apps/get-by-slug
@@ -2818,9 +2820,9 @@ paths:
 
         To create tokens for a particular OAuth application using this endpoint, you must authenticate as the user you want to create an authorization for and provide the app's client ID and secret, found on your OAuth application's settings page. If your OAuth application intends to create multiple tokens for one user, use `fingerprint` to differentiate between them.
 
-        You can also create tokens on GitHub Enterprise Server from the [personal access tokens settings](https://github.com/settings/tokens) page. Read more about these tokens in [the GitHub Help documentation](https://help.github.com/articles/creating-an-access-token-for-command-line-use).
+        You can also create tokens on GitHub Enterprise Server from the [personal access tokens settings](https://github.com/settings/tokens) page. Read more about these tokens in [the GitHub Help documentation](https://docs.github.com/articles/creating-an-access-token-for-command-line-use).
 
-        Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://help.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
+        Organizations that enforce SAML SSO require personal access tokens to be allowed. Read more about allowing tokens in [the GitHub Help documentation](https://docs.github.com/articles/about-identity-and-access-management-with-saml-single-sign-on).
       tags:
       - oauth-authorizations
       operationId: oauth-authorizations/create-authorization
@@ -3683,7 +3685,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#get-github-actions-permissions-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -3699,8 +3701,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
     put:
       summary: Set GitHub Actions permissions for an enterprise
       description: |-
@@ -3712,7 +3714,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#set-github-actions-permissions-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -3737,8 +3739,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
   "/enterprises/{enterprise}/actions/permissions/organizations":
     get:
       summary: List selected organizations enabled for GitHub Actions in an enterprise
@@ -3751,7 +3753,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-selected-organizations-enabled-for-github-actions-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/per-page"
@@ -3779,8 +3781,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
     put:
       summary: Set selected organizations enabled for GitHub Actions in an enterprise
       description: |-
@@ -3792,7 +3794,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#set-selected-organizations-enabled-for-github-actions-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -3820,8 +3822,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
   "/enterprises/{enterprise}/actions/permissions/organizations/{org_id}":
     put:
       summary: Enable a selected organization for GitHub Actions in an enterprise
@@ -3834,7 +3836,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#enable-a-selected-organization-for-github-actions-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/org-id"
@@ -3844,8 +3846,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
     delete:
       summary: Disable a selected organization for GitHub Actions in an enterprise
       description: |-
@@ -3857,7 +3859,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#disable-a-selected-organization-for-github-actions-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/org-id"
@@ -3867,8 +3869,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
   "/enterprises/{enterprise}/actions/permissions/selected-actions":
     get:
       summary: Get allowed actions for an enterprise
@@ -3881,7 +3883,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#get-allowed-actions-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -3897,8 +3899,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
     put:
       summary: Set allowed actions for an enterprise
       description: |-
@@ -3910,7 +3912,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#set-allowed-actions-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -3928,8 +3930,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: permissions
   "/enterprises/{enterprise}/actions/runner-groups":
     get:
       summary: List self-hosted runner groups for an enterprise
@@ -3942,7 +3944,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-self-hosted-runner-groups-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/per-page"
@@ -3970,8 +3972,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     post:
       summary: Create a self-hosted runner group for an enterprise
       description: |-
@@ -3983,7 +3985,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#create-self-hosted-runner-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       requestBody:
@@ -4044,8 +4046,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}":
     get:
       summary: Get a self-hosted runner group for an enterprise
@@ -4058,7 +4060,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#get-a-self-hosted-runner-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4075,8 +4077,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     patch:
       summary: Update a self-hosted runner group for an enterprise
       description: |-
@@ -4088,7 +4090,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#update-a-self-hosted-runner-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4130,8 +4132,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     delete:
       summary: Delete a self-hosted runner group from an enterprise
       description: |-
@@ -4143,7 +4145,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4153,8 +4155,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations":
     get:
       summary: List organization access to a self-hosted runner group in an enterprise
@@ -4167,7 +4169,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4196,8 +4198,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     put:
       summary: Set organization access for a self-hosted runner group in an enterprise
       description: |-
@@ -4209,7 +4211,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4239,8 +4241,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations/{org_id}":
     put:
       summary: Add organization access to a self-hosted runner group in an enterprise
@@ -4253,7 +4255,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4264,8 +4266,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     delete:
       summary: Remove organization access to a self-hosted runner group in an enterprise
       description: |-
@@ -4277,7 +4279,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4288,8 +4290,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners":
     get:
       summary: List self-hosted runners in a group for an enterprise
@@ -4302,7 +4304,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4334,8 +4336,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     put:
       summary: Set self-hosted runners in a group for an enterprise
       description: |-
@@ -4347,7 +4349,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4376,8 +4378,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners/{runner_id}":
     put:
       summary: Add a self-hosted runner to a group for an enterprise
@@ -4391,7 +4393,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#add-a-self-hosted-runner-to-a-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4402,8 +4404,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
     delete:
       summary: Remove a self-hosted runner from a group for an enterprise
       description: |-
@@ -4415,7 +4417,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-group-id"
@@ -4426,8 +4428,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runner-groups
   "/enterprises/{enterprise}/actions/runners":
     get:
       summary: List self-hosted runners for an enterprise
@@ -4440,7 +4442,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-self-hosted-runners-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/per-page"
@@ -4468,8 +4470,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
   "/enterprises/{enterprise}/actions/runners/downloads":
     get:
       summary: List runner applications for an enterprise
@@ -4482,7 +4484,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#list-runner-applications-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -4500,8 +4502,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
   "/enterprises/{enterprise}/actions/runners/registration-token":
     post:
       summary: Create a registration token for an enterprise
@@ -4522,7 +4524,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#create-a-registration-token-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -4538,8 +4540,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
   "/enterprises/{enterprise}/actions/runners/remove-token":
     post:
       summary: Create a remove token for an enterprise
@@ -4561,7 +4563,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#create-a-remove-token-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       responses:
@@ -4577,8 +4579,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
   "/enterprises/{enterprise}/actions/runners/{runner_id}":
     get:
       summary: Get a self-hosted runner for an enterprise
@@ -4591,7 +4593,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#get-a-self-hosted-runner-for-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-id"
@@ -4608,8 +4610,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
     delete:
       summary: Delete a self-hosted runner from an enterprise
       description: |-
@@ -4621,7 +4623,7 @@ paths:
       - enterprise-admin
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/actions#delete-self-hosted-runner-from-an-enterprise
       parameters:
       - "$ref": "#/components/parameters/enterprise"
       - "$ref": "#/components/parameters/runner-id"
@@ -4631,8 +4633,8 @@ paths:
       x-github:
         enabledForGitHubApps: false
         githubCloudOnly: false
-        category: enterprise-admin
-        subcategory: actions
+        category: actions
+        subcategory: self-hosted-runners
   "/events":
     get:
       summary: List public events
@@ -5858,7 +5860,7 @@ paths:
                   description: The Markdown text to render in HTML.
                   type: string
                 mode:
-                  description: The rendering mode.
+                  description: The rendering mode. Can be either `markdown` or `gfm`.
                   enum:
                   - markdown
                   - gfm
@@ -5867,7 +5869,9 @@ paths:
                   type: string
                 context:
                   description: The repository context to use when creating references
-                    in `gfm` mode.
+                    in `gfm` mode.  For example, setting `context` to `octo-org/octo-repo`
+                    will change the text `#42` into an HTML link to issue 42 in the
+                    `octo-org/octo-repo` repository.
                   type: string
               required:
               - text
@@ -6341,7 +6345,7 @@ paths:
     get:
       summary: Get an organization
       description: |-
-        To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
+        To see many of the organization response values, you need to be an authenticated organization owner with the `admin:org` scope. When the value of `two_factor_requirement_enabled` is `true`, the organization requires all members, billing managers, and outside collaborators to enable [two-factor authentication](https://docs.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/).
 
         GitHub Apps with the `Organization plan` permission can use this endpoint to retrieve information about an organization's GitHub Enterprise Server plan. See "[Authenticating with GitHub Apps](https://docs.github.com/enterprise-server@3.0/apps/building-github-apps/authenticating-with-github-apps/)" for details. For an example response, see 'Response with GitHub Enterprise Server plan information' below."
       tags:
@@ -6462,7 +6466,7 @@ paths:
                     of:  \n\\* `true` - all organization members can create internal
                     repositories.  \n\\* `false` - only organization owners can create
                     internal repositories.  \nDefault: `true`. For more information,
-                    see \"[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
+                    see \"[Restricting repository creation in your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
                     in the GitHub Help documentation."
                 members_can_create_private_repositories:
                   type: boolean
@@ -6471,7 +6475,7 @@ paths:
                     Can be one of:  \n\\* `true` - all organization members can create
                     private repositories.  \n\\* `false` - only organization owners
                     can create private repositories.  \nDefault: `true`. For more
-                    information, see \"[Restricting repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
+                    information, see \"[Restricting repository creation in your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
                     in the GitHub Help documentation."
                 members_can_create_public_repositories:
                   type: boolean
@@ -6480,7 +6484,7 @@ paths:
                     `true` - all organization members can create public repositories.
                     \ \n\\* `false` - only organization owners can create public repositories.
                     \ \nDefault: `true`. For more information, see \"[Restricting
-                    repository creation in your organization](https://help.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
+                    repository creation in your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)\"
                     in the GitHub Help documentation."
                 members_allowed_repository_creation_type:
                   type: string
@@ -6507,6 +6511,14 @@ paths:
                     members can create GitHub Pages sites. Existing published sites
                     will not be impacted."
                   default: true
+                members_can_fork_private_repositories:
+                  type: boolean
+                  description: "Toggles whether organization members can fork private
+                    organization repositories. Can be one of:  \n\\* `true` - all
+                    organization members can fork private repositories within the
+                    organization.  \n\\* `false` - no organization members can fork
+                    private repositories within the organization."
+                  default: false
                 blog:
                   type: string
                   example: '"http://github.blog"'
@@ -7662,7 +7674,7 @@ paths:
 
         #### Example encrypting a secret using Python
 
-        Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
 
         ```
         from base64 import b64encode
@@ -8827,7 +8839,7 @@ paths:
       description: When an organization member is converted to an outside collaborator,
         they'll only have access to the repositories that their current team membership
         allows. The user will no longer be a member of the organization. For more
-        information, see "[Converting an organization member to an outside collaborator](https://help.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
+        information, see "[Converting an organization member to an outside collaborator](https://docs.github.com/articles/converting-an-organization-member-to-an-outside-collaborator/)".
       tags:
       - orgs
       operationId: orgs/convert-member-to-outside-collaborator
@@ -9450,7 +9462,7 @@ paths:
                     be `internal`. Note: For GitHub Enterprise Server and GitHub AE,
                     this endpoint will only list repositories available to all users
                     on the enterprise. For more information, see \"[Creating an internal
-                    repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)\"
+                    repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)\"
                     in the GitHub Help documentation.  \nThe `visibility` parameter
                     overrides the `private` parameter when you use both parameters
                     with the `nebula-preview` preview header."
@@ -9499,7 +9511,7 @@ paths:
                 license_template:
                   type: string
                   description: Choose an [open source license template](https://choosealicense.com/)
-                    that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type)
+                    that best suits your needs, and then use the [license keyword](https://docs.github.com/articles/licensing-a-repository/#searching-github-by-license-type)
                     as the `license_template` string. For example, "mit" or "mpl-2.0".
                 allow_squash_merge:
                   type: boolean
@@ -9614,9 +9626,9 @@ paths:
     post:
       summary: Create a team
       description: |-
-        To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://help.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
+        To create a team, the authenticated user must be a member or owner of `{org}`. By default, organization members can create teams. Organization owners can limit team creation to organization owners. For more information, see "[Setting team creation permissions](https://docs.github.com/en/articles/setting-team-creation-permissions-in-your-organization)."
 
-        When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
+        When you create a new team, you automatically become a team maintainer without explicitly adding yourself to the optional array of `maintainers`. For more information, see "[About teams](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-teams)".
       tags:
       - teams
       operationId: teams/create
@@ -9668,23 +9680,28 @@ paths:
                     will be added to the team with when none is specified. Can be
                     one of:  \n\\* `pull` - team members can pull, but not push to
                     or administer newly-added repositories.  \n\\* `push` - team members
-                    can pull and push, but not administer newly-added repositories.
-                    \ \n\\* `admin` - team members can pull, push and administer newly-added
-                    repositories."
+                    can pull and push, but not administer newly-added repositories."
                   enum:
                   - pull
                   - push
-                  - admin
                   default: pull
                 parent_team_id:
                   type: integer
                   description: The ID of a team to set as the parent team.
+                ldap_dn:
+                  type: string
+                  description: The [distinguished name](https://www.ldap.com/ldap-dns-and-rdns)
+                    (DN) of the LDAP entry to map to a team. LDAP synchronization
+                    must be enabled to map LDAP entries to a team. Use the "[Update
+                    LDAP mapping for a team](https://docs.github.com/enterprise-server@3.0/rest/reference/enterprise-admin#update-ldap-mapping-for-a-team)"
+                    endpoint to change the LDAP DN. For more information, see "[Using
+                    LDAP](https://docs.github.com/enterprise-server@3.0/admin/identity-and-access-management/authenticating-users-for-your-github-enterprise-server-instance/using-ldap#enabling-ldap-sync)."
               required:
               - name
             example:
               name: Justice League
               description: A great team
-              permission: admin
+              permission: push
               privacy: closed
       responses:
         '201':
@@ -10775,11 +10792,11 @@ paths:
     put:
       summary: Add or update team membership for a user
       description: |-
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Adds an organization member to a team. An authenticated organization owner or team maintainer can add organization members to a team.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
 
         An organization owner can add someone who is not part of the team's organization to a team. When an organization owner adds someone to a team who is not an organization member, this endpoint will send an invitation to the person via email. This newly-created membership will be in the "pending" state until the person accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team.
 
@@ -10837,11 +10854,11 @@ paths:
     delete:
       summary: Remove team membership for a user
       description: |-
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
 
         **Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/{org_id}/team/{team_id}/memberships/{username}`.
       tags:
@@ -11133,7 +11150,7 @@ paths:
 
         **Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/{org_id}/team/{team_id}/repos/{owner}/{repo}`.
 
-        For more information about the permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        For more information about the permission levels, see "[Repository permission levels for an organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
       tags:
       - teams
       operationId: teams/add-or-update-repo-permissions-in-org
@@ -12538,10 +12555,10 @@ paths:
                   description: "Either `true` to make the repository private or `false`
                     to make it public. Default: `false`.  \n**Note**: You will get
                     a `422` error if the organization restricts [changing repository
-                    visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories)
+                    visibility](https://docs.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories)
                     to organization owners and a non-owner tries to change the value
                     of private. **Note**: You will get a `422` error if the organization
-                    restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories)
+                    restricts [changing repository visibility](https://docs.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories)
                     to organization owners and a non-owner tries to change the value
                     of private."
                   default: false
@@ -13540,6 +13557,10 @@ paths:
       responses:
         '204':
           description: Response
+        '403':
+          "$ref": "#/components/responses/forbidden"
+        '500':
+          "$ref": "#/components/responses/internal_error"
       x-github:
         githubCloudOnly: false
         enabledForGitHubApps: true
@@ -13721,7 +13742,7 @@ paths:
 
         #### Example encrypting a secret using Python
 
-        Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/stable/public/#nacl-public-sealedbox) with Python 3.
+        Encrypt your secret using [pynacl](https://pynacl.readthedocs.io/en/latest/public/#nacl-public-sealedbox) with Python 3.
 
         ```
         from base64 import b64encode
@@ -13946,7 +13967,7 @@ paths:
 
         You must configure your GitHub Actions workflow to run when the [`workflow_dispatch` webhook](/developers/webhooks-and-events/webhook-events-and-payloads#workflow_dispatch) event occurs. The `inputs` are configured in the workflow file. For more information about how to configure the `workflow_dispatch` event in the workflow file, see "[Events that trigger workflows](/actions/reference/events-that-trigger-workflows#workflow_dispatch)."
 
-        You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)."
+        You must authenticate using an access token with the `repo` scope to use this endpoint. GitHub Apps must have the `actions:write` permission to use this endpoint. For more information, see "[Creating a personal access token for the command line](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line)."
       operationId: actions/create-workflow-dispatch
       tags:
       - actions
@@ -14073,7 +14094,7 @@ paths:
   "/repos/{owner}/{repo}/assignees":
     get:
       summary: List assignees
-      description: Lists the [available assignees](https://help.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/)
+      description: Lists the [available assignees](https://docs.github.com/articles/assigning-issues-and-pull-requests-to-other-github-users/)
         for issues in a repository.
       tags:
       - issues
@@ -14229,7 +14250,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14269,7 +14290,7 @@ paths:
     put:
       summary: Update branch protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Protecting a branch requires admin or owner permissions to the repository.
 
@@ -14304,13 +14325,34 @@ paths:
                       description: Require branches to be up to date before merging.
                     contexts:
                       type: array
-                      description: The list of status checks to require in order to
-                        merge into this branch. If any of these checks have recently
-                        been set by a particular GitHub App, they will be required
-                        to come from that app in future for the branch to merge. Use
-                        `checks` instead of `contexts` for more fine-grained control.
+                      deprecated: true
+                      description: "**Deprecated**: The list of status checks to require
+                        in order to merge into this branch. If any of these checks
+                        have recently been set by a particular GitHub App, they will
+                        be required to come from that app in future for the branch
+                        to merge. Use `checks` instead of `contexts` for more fine-grained
+                        control.\n"
                       items:
                         type: string
+                    checks:
+                      type: array
+                      description: The list of status checks to require in order to
+                        merge into this branch.
+                      items:
+                        type: object
+                        required:
+                        - context
+                        properties:
+                          context:
+                            type: string
+                            description: The name of the required check
+                          app_id:
+                            type: integer
+                            description: The ID of the GitHub App that must provide
+                              this check. Omit this field to automatically select
+                              the GitHub App that has recently provided this check,
+                              or any app if it was not set by a GitHub App. Pass -1
+                              to explicitly allow any app to set the status.
                   required:
                   - strict
                   - contexts
@@ -14350,7 +14392,7 @@ paths:
                         approving reviews when someone pushes a new commit.
                     require_code_owner_reviews:
                       type: boolean
-                      description: Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/)
+                      description: Blocks merging pull requests until [code owners](https://docs.github.com/articles/about-code-owners/)
                         review them.
                     required_approving_review_count:
                       type: integer
@@ -14389,7 +14431,7 @@ paths:
                     commit Git history. Your repository must allow squash merging
                     or rebase merging before you can enable a linear commit history.
                     Default: `false`. For more information, see "[Requiring a linear
-                    commit history](https://help.github.com/github/administering-a-repository/requiring-a-linear-commit-history)"
+                    commit history](https://docs.github.com/github/administering-a-repository/requiring-a-linear-commit-history)"
                     in the GitHub Help documentation.'
                 allow_force_pushes:
                   type: boolean
@@ -14397,7 +14439,7 @@ paths:
                     with write access to the repository. Set to `true` to allow force
                     pushes. Set to `false` or `null` to block force pushes. Default:
                     `false`. For more information, see "[Enabling force pushes to
-                    a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)"
+                    a protected branch](https://docs.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)"
                     in the GitHub Help documentation."'
                   nullable: true
                 allow_deletions:
@@ -14405,13 +14447,19 @@ paths:
                   description: 'Allows deletion of the protected branch by anyone
                     with write access to the repository. Set to `false` to prevent
                     deletion of the protected branch. Default: `false`. For more information,
-                    see "[Enabling force pushes to a protected branch](https://help.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)"
+                    see "[Enabling force pushes to a protected branch](https://docs.github.com/en/github/administering-a-repository/enabling-force-pushes-to-a-protected-branch)"
                     in the GitHub Help documentation.'
                 required_conversation_resolution:
                   type: boolean
                   description: 'Requires all conversations on code to be resolved
                     before a pull request can be merged into a branch that matches
                     this rule. Set to `false` to disable. Default: `false`.'
+                contexts:
+                  type: array
+                  description: The list of status checks to require in order to merge
+                    into this branch.
+                  items:
+                    type: string
               required:
               - required_status_checks
               - enforce_admins
@@ -14432,6 +14480,11 @@ paths:
                 dismiss_stale_reviews: true
                 require_code_owner_reviews: true
                 required_approving_review_count: 2
+                bypass_pull_request_allowances:
+                  users:
+                  - octocat
+                  teams:
+                  - justice-league
               restrictions:
                 users:
                 - octocat
@@ -14474,7 +14527,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14502,7 +14555,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14532,7 +14585,7 @@ paths:
     post:
       summary: Set admin branch protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Adding admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
       tags:
@@ -14563,7 +14616,7 @@ paths:
     delete:
       summary: Delete admin branch protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Removing admin enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
       tags:
@@ -14592,7 +14645,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14630,7 +14683,7 @@ paths:
     patch:
       summary: Update pull request review protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Updating pull request review enforcement requires admin or owner permissions to the repository and branch protection to be enabled.
 
@@ -14676,7 +14729,7 @@ paths:
                     approving reviews when someone pushes a new commit.
                 require_code_owner_reviews:
                   type: boolean
-                  description: Blocks merging pull requests until [code owners](https://help.github.com/articles/about-code-owners/)
+                  description: Blocks merging pull requests until [code owners](https://docs.github.com/articles/about-code-owners/)
                     have reviewed.
                 required_approving_review_count:
                   type: integer
@@ -14684,6 +14737,11 @@ paths:
                     pull requests. Use a number between 1 and 6.
             example:
               dismissal_restrictions:
+                users:
+                - octocat
+                teams:
+                - justice-league
+              bypass_pull_request_allowances:
                 users:
                 - octocat
                 teams:
@@ -14721,7 +14779,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14747,9 +14805,9 @@ paths:
     get:
       summary: Get commit signature protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
-        When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://help.github.com/articles/signing-commits-with-gpg) in GitHub Help.
+        When authenticated with admin or owner permissions to the repository, you can use this endpoint to check whether a branch requires signed commits. An enabled status of `true` indicates you must sign commits on this branch. For more information, see [Signing commits with GPG](https://docs.github.com/articles/signing-commits-with-gpg) in GitHub Help.
 
         **Note**: You must enable branch protection to require signed commits.
       tags:
@@ -14790,7 +14848,7 @@ paths:
     post:
       summary: Create commit signature protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         When authenticated with admin or owner permissions to the repository, you can use this endpoint to require signed commits on a branch. You must enable branch protection to require signed commits.
       tags:
@@ -14831,7 +14889,7 @@ paths:
     delete:
       summary: Delete commit signature protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         When authenticated with admin or owner permissions to the repository, you can use this endpoint to disable required signed commits on a branch. You must enable branch protection to require signed commits.
       tags:
@@ -14868,7 +14926,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14900,7 +14958,7 @@ paths:
     patch:
       summary: Update status check protection
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Updating required status checks requires admin or owner permissions to the repository and branch protection to be enabled.
       tags:
@@ -14908,7 +14966,7 @@ paths:
       operationId: repos/update-status-check-protection
       externalDocs:
         description: API method documentation
-        url: https://docs.github.com/enterprise-server@3.0/rest/reference/repos#update-status-check-potection
+        url: https://docs.github.com/enterprise-server@3.0/rest/reference/repos#update-status-check-protection
       parameters:
       - "$ref": "#/components/parameters/owner"
       - "$ref": "#/components/parameters/repo"
@@ -14925,6 +14983,7 @@ paths:
                   description: Require branches to be up to date before merging.
                 contexts:
                   type: array
+                  deprecated: true
                   description: The list of status checks to require in order to merge
                     into this branch
                   items:
@@ -14957,7 +15016,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -14983,7 +15042,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -15018,7 +15077,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -15081,7 +15140,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -15141,7 +15200,7 @@ paths:
       description: Protected branches are available in public repositories with GitHub
         Free and GitHub Free for organizations, and in public and private repositories
         with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise
-        Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - repos
@@ -15199,7 +15258,7 @@ paths:
     get:
       summary: Get access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Lists who has access to this protected branch.
 
@@ -15234,7 +15293,7 @@ paths:
     delete:
       summary: Delete access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Disables the ability to restrict who can push to this branch.
       tags:
@@ -15259,7 +15318,7 @@ paths:
     get:
       summary: Get apps with access to the protected branch
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Lists the GitHub Apps that have push access to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
       tags:
@@ -15294,7 +15353,7 @@ paths:
     post:
       summary: Add app access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Grants the specified apps push access for this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
 
@@ -15355,7 +15414,7 @@ paths:
     put:
       summary: Set app access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Replaces the list of apps that have push access to this branch. This removes all apps that previously had push access and grants push access to the new list of apps. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
 
@@ -15416,7 +15475,7 @@ paths:
     delete:
       summary: Remove app access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Removes the ability of an app to push to this branch. Only installed GitHub Apps with `write` access to the `contents` permission can be added as authorized actors on a protected branch.
 
@@ -15477,7 +15536,7 @@ paths:
     get:
       summary: Get teams with access to the protected branch
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Lists the teams who have push access to this branch. The list includes child teams.
       tags:
@@ -15512,7 +15571,7 @@ paths:
     post:
       summary: Add team access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Grants the specified teams push access for this branch. You can also give push access to child teams.
 
@@ -15574,7 +15633,7 @@ paths:
     put:
       summary: Set team access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Replaces the list of teams that have push access to this branch. This removes all teams that previously had push access and grants push access to the new list of teams. Team restrictions include child teams.
 
@@ -15636,7 +15695,7 @@ paths:
     delete:
       summary: Remove team access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Removes the ability of a team to push to this branch. You can also remove push access for child teams.
 
@@ -15698,7 +15757,7 @@ paths:
     get:
       summary: Get users with access to the protected branch
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Lists the people who have push access to this branch.
       tags:
@@ -15733,7 +15792,7 @@ paths:
     post:
       summary: Add user access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Grants the specified people push access for this branch.
 
@@ -15794,7 +15853,7 @@ paths:
     put:
       summary: Set user access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Replaces the list of people that have push access to this branch. This removes all people that previously had push access and grants push access to the new list of people.
 
@@ -15855,7 +15914,7 @@ paths:
     delete:
       summary: Remove user access restrictions
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Removes the ability of a user to push to this branch.
 
@@ -16022,7 +16081,7 @@ paths:
                         endpoint. Each time you update the check run, annotations
                         are appended to the list of annotations that already exist
                         for the check run. For details about how you can view annotations
-                        on GitHub, see "[About status checks](https://help.github.com/articles/about-status-checks#checks)".
+                        on GitHub, see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)".
                         See the [`annotations` object](https://docs.github.com/enterprise-server@3.0/rest/reference/checks#annotations-object)
                         description for details about how to use this parameter.
                       maxItems: 50
@@ -16350,7 +16409,7 @@ paths:
                         endpoint. Each time you update the check run, annotations
                         are appended to the list of annotations that already exist
                         for the check run. For details about annotations in the UI,
-                        see "[About status checks](https://help.github.com/articles/about-status-checks#checks)".
+                        see "[About status checks](https://docs.github.com/articles/about-status-checks#checks)".
                         See the [`annotations` object](https://docs.github.com/enterprise-server@3.0/rest/reference/checks#annotations-object-1)
                         description for details.
                       maxItems: 50
@@ -17114,7 +17173,9 @@ paths:
 
         Team members will include the members of child teams.
 
-        You must have push access to the repository in order to list collaborators.
+        You must authenticate using an access token with the `read:org` and `repo` scopes with push access to use this
+        endpoint. GitHub Apps must have the `members` organization permission and `metadata` repository permission to use this
+        endpoint.
       tags:
       - repos
       operationId: repos/list-collaborators
@@ -17170,6 +17231,10 @@ paths:
         For organization-owned repositories, the list of collaborators includes outside collaborators, organization members that are direct collaborators, organization members with access through team memberships, organization members with access through default organization permissions, and organization owners.
 
         Team members will include the members of child teams.
+
+        You must authenticate using an access token with the `read:org` and `repo` scopes with push access to use this
+        endpoint. GitHub Apps must have the `members` organization permission and `metadata` repository permission to use this
+        endpoint.
       tags:
       - repos
       operationId: repos/check-collaborator
@@ -17195,7 +17260,11 @@ paths:
       description: |-
         This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
 
-        For more information on permission levels, see "[Repository permission levels for an organization](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)".
+        For more information on permission levels, see "[Repository permission levels for an organization](https://docs.github.com/en/github/setting-up-and-managing-organizations-and-teams/repository-permission-levels-for-an-organization#permission-levels-for-repositories-owned-by-an-organization)". There are restrictions on which permissions can be granted to organization members when an organization base role is in place. In this case, the permission being given must be equal to or higher than the org base permission. Otherwise, the request will fail with:
+
+        ```
+        Cannot assign {member} permission of {role name}
+        ```
 
         Note that, if you choose not to pass any parameters, you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#http-verbs)."
 
@@ -17755,7 +17824,7 @@ paths:
     get:
       summary: List branches for HEAD commit
       description: |-
-        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Protected branches are available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team, GitHub Enterprise Cloud, and GitHub Enterprise Server. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Returns all branches where the given commit SHA is the HEAD, or latest commit for the branch.
       tags:
@@ -18894,7 +18963,7 @@ paths:
         the API will return a successful merge commit. If merge conflicts prevent the merge from succeeding, the API will
         return a failure response.
 
-        By default, [commit statuses](https://docs.github.com/enterprise-server@3.0/rest/reference/repos#statuses) for every submitted context must be in a `success`
+        By default, [commit statuses](https://docs.github.com/enterprise-server@3.0/rest/reference/commits#commit-statuses) for every submitted context must be in a `success`
         state. The `required_contexts` parameter allows you to specify a subset of contexts that must be `success`, or to
         specify contexts that have not yet been submitted. You are not required to use commit statuses to deploy. If you do
         not require any contexts or create any commit statuses, the deployment will always succeed.
@@ -18955,7 +19024,7 @@ paths:
                   default: true
                 required_contexts:
                   type: array
-                  description: The [status](https://docs.github.com/enterprise-server@3.0/rest/reference/repos#statuses)
+                  description: The [status](https://docs.github.com/enterprise-server@3.0/rest/reference/commits#commit-statuses)
                     contexts to verify against commit status checks. If you omit this
                     parameter, GitHub verifies all unique contexts before creating
                     a deployment. To bypass checking entirely, pass an empty array.
@@ -19109,7 +19178,7 @@ paths:
     delete:
       summary: Delete a deployment
       description: |-
-        To ensure there can always be an active deployment, you can only delete an _inactive_ deployment. Anyone with `repo` or `repo_deployment` scopes can delete an inactive deployment.
+        If the repository only has one deployment, you can delete the deployment regardless of its status. If the repository has more than one deployment, you can only delete inactive deployments. This ensures that repositories with multiple deployments will always have an active deployment. Anyone with `repo` or `repo_deployment` scopes can delete a deployment.
 
         To set a deployment as inactive, you must:
 
@@ -19222,8 +19291,8 @@ paths:
                 state:
                   type: string
                   description: The state of the status. Can be one of `error`, `failure`,
-                    `inactive`, `in_progress`, `queued` `pending`, or `success`. **Note:**
-                    To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/enterprise-server@3.0/rest/overview/api-previews#enhanced-deployments)
+                    `inactive`, `in_progress`, `queued`, `pending`, or `success`.
+                    **Note:** To use the `inactive` state, you must provide the [`application/vnd.github.ant-man-preview+json`](https://docs.github.com/enterprise-server@3.0/rest/overview/api-previews#enhanced-deployments)
                     custom media type. When you set a transient deployment to `inactive`,
                     the deployment will be shown as `destroyed` in GitHub.
                   enum:
@@ -19394,7 +19463,7 @@ paths:
 
         This endpoint requires write access to the repository by providing either:
 
-          - Personal access tokens with `repo` scope. For more information, see "[Creating a personal access token for the command line](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)" in the GitHub Help documentation.
+          - Personal access tokens with `repo` scope. For more information, see "[Creating a personal access token for the command line](https://docs.github.com/articles/creating-a-personal-access-token-for-the-command-line)" in the GitHub Help documentation.
           - GitHub Apps with both `metadata:read` and `contents:read&write` permissions.
 
         This input example shows how you can use the `client_payload` as a test to debug your workflow.
@@ -21162,9 +21231,9 @@ paths:
     post:
       summary: Create an issue
       description: |-
-        Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://help.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
+        Any user with pull access to a repository can create an issue. If [issues are disabled in the repository](https://docs.github.com/articles/disabling-issues/), the API returns a `410 Gone` status.
 
-        This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
+        This endpoint triggers [notifications](https://docs.github.com/enterprise-server@3.0/github/managing-subscriptions-and-notifications-on-github/about-notifications). Creating content too quickly using this endpoint may result in secondary rate limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#secondary-rate-limits)" and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)" for details.
       tags:
       - issues
       operationId: issues/create
@@ -21666,7 +21735,7 @@ paths:
           note: |-
             Project card details are now shown in REST API v3 responses for project-related issue and timeline events. This feature is now available for developers to preview. For details, see the [blog post](https://developer.github.com/changes/2018-09-05-project-card-events).
 
-            To receive the `project_card` attribute, project boards must be [enabled](https://help.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
+            To receive the `project_card` attribute, project boards must be [enabled](https://docs.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
             ```shell
             application/vnd.github.starfox-preview+json
             ```
@@ -21715,7 +21784,7 @@ paths:
           note: |-
             Project card details are now shown in REST API v3 responses for project-related issue and timeline events. This feature is now available for developers to preview. For details, see the [blog post](https://developer.github.com/changes/2018-09-05-project-card-events).
 
-            To receive the `project_card` attribute, project boards must be [enabled](https://help.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
+            To receive the `project_card` attribute, project boards must be [enabled](https://docs.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
             ```shell
             application/vnd.github.starfox-preview+json
             ```
@@ -21724,7 +21793,7 @@ paths:
       summary: Get an issue
       description: |-
         The API returns a [`301 Moved Permanently` status](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#http-redirects-redirects) if the issue was
-        [transferred](https://help.github.com/articles/transferring-an-issue-to-another-repository/) to another repository. If
+        [transferred](https://docs.github.com/articles/transferring-an-issue-to-another-repository/) to another repository. If
         the issue was transferred to or deleted from a repository where the authenticated user lacks read access, the API
         returns a `404 Not Found` status. If the issue was deleted from a repository where the authenticated user has read
         access, the API returns a `410 Gone` status. To receive webhook events for transferred and deleted issues, subscribe
@@ -22041,7 +22110,7 @@ paths:
             The `reactions` key will have the following payload where `url` can be used to construct the API location for [listing and creating](https://docs.github.com/enterprise-server@3.0/rest/reference/reactions) reactions.
     post:
       summary: Create an issue comment
-      description: This endpoint triggers [notifications](https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/about-notifications).
+      description: This endpoint triggers [notifications](https://docs.github.com/enterprise-server@3.0/github/managing-subscriptions-and-notifications-on-github/about-notifications).
         Creating content too quickly using this endpoint may result in secondary rate
         limiting. See "[Secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#secondary-rate-limits)"
         and "[Dealing with secondary rate limits](https://docs.github.com/enterprise-server@3.0/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits)"
@@ -22143,7 +22212,7 @@ paths:
           note: |-
             Project card details are now shown in REST API v3 responses for project-related issue and timeline events. This feature is now available for developers to preview. For details, see the [blog post](https://developer.github.com/changes/2018-09-05-project-card-events).
 
-            To receive the `project_card` attribute, project boards must be [enabled](https://help.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
+            To receive the `project_card` attribute, project boards must be [enabled](https://docs.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
             ```shell
             application/vnd.github.starfox-preview+json
             ```
@@ -22209,11 +22278,12 @@ paths:
                   labels:
                     type: array
                     minItems: 1
-                    description: The names of the labels to add to the issue. You
-                      can pass an empty array to remove all labels. **Note:** Alternatively,
+                    description: The names of the labels to add to the issue's existing
+                      labels. You can pass an empty array to remove all labels. Alternatively,
                       you can pass a single label as a `string` or an `array` of labels
                       directly, but GitHub recommends passing an object with the `labels`
-                      key.
+                      key. You can also replace all of the labels for an issue. For
+                      more information, see "[Set labels for an issue](https://docs.github.com/enterprise-server@3.0/rest/reference/issues#set-labels-for-an-issue)."
                     items:
                       type: string
               - type: array
@@ -22291,11 +22361,13 @@ paths:
                   labels:
                     type: array
                     minItems: 1
-                    description: The names of the labels to add to the issue. You
-                      can pass an empty array to remove all labels. **Note:** Alternatively,
-                      you can pass a single label as a `string` or an `array` of labels
-                      directly, but GitHub recommends passing an object with the `labels`
-                      key.
+                    description: The names of the labels to set for the issue. The
+                      labels you set replace any existing labels. You can pass an
+                      empty array to remove all labels. Alternatively, you can pass
+                      a single label as a `string` or an `array` of labels directly,
+                      but GitHub recommends passing an object with the `labels` key.
+                      You can also add labels to the existing labels for an issue.
+                      For more information, see "[Add labels to an issue](https://docs.github.com/enterprise-server@3.0/rest/reference/issues#add-labels-to-an-issue)."
                     items:
                       type: string
               - type: array
@@ -22717,7 +22789,7 @@ paths:
           note: |-
             Project card details are now shown in REST API v3 responses for project-related issue and timeline events. This feature is now available for developers to preview. For details, see the [blog post](https://developer.github.com/changes/2018-09-05-project-card-events).
 
-            To receive the `project_card` attribute, project boards must be [enabled](https://help.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
+            To receive the `project_card` attribute, project boards must be [enabled](https://docs.github.com/articles/disabling-project-boards-in-a-repository) for a repository, and you must provide a custom [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types) in the `Accept` header:
             ```shell
             application/vnd.github.starfox-preview+json
             ```
@@ -22788,8 +22860,8 @@ paths:
                     \ \nDeploy keys with write access can perform the same actions
                     as an organization member with admin access, or a collaborator
                     on a personal repository. For more information, see \"[Repository
-                    permission levels for an organization](https://help.github.com/articles/repository-permission-levels-for-an-organization/)\"
-                    and \"[Permission levels for a user account repository](https://help.github.com/articles/permission-levels-for-a-user-account-repository/).\""
+                    permission levels for an organization](https://docs.github.com/articles/repository-permission-levels-for-an-organization/)\"
+                    and \"[Permission levels for a user account repository](https://docs.github.com/articles/permission-levels-for-a-user-account-repository/).\""
               required:
               - key
             example:
@@ -22940,7 +23012,8 @@ paths:
                     for the label, without the leading `#`.
                 description:
                   type: string
-                  description: A short description of the label.
+                  description: A short description of the label. Must be 100 characters
+                    or fewer.
               required:
               - name
             example:
@@ -23043,7 +23116,8 @@ paths:
                     for the label, without the leading `#`.
                 description:
                   type: string
-                  description: A short description of the label.
+                  description: A short description of the label. Must be 100 characters
+                    or fewer.
             example:
               new_name: 'bug :bug:'
               description: Small bug fix required
@@ -23718,7 +23792,7 @@ paths:
                   type: string
                   description: Specify a custom domain for the repository. Sending
                     a `null` value will remove the custom domain. For more about custom
-                    domains, see "[Using a custom domain with GitHub Pages](https://help.github.com/articles/using-a-custom-domain-with-github-pages/)."
+                    domains, see "[Using a custom domain with GitHub Pages](https://docs.github.com/articles/using-a-custom-domain-with-github-pages/)."
                   nullable: true
                 https_enforced:
                   type: boolean
@@ -24279,7 +24353,7 @@ paths:
       description: Draft pull requests are available in public repositories with GitHub
         Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository
         billing plans, and in public and private repositories with GitHub Team and
-        GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products)
+        GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products)
         in the GitHub Help documentation.
       tags:
       - pulls
@@ -24368,7 +24442,7 @@ paths:
     post:
       summary: Create a pull request
       description: |-
-        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
 
@@ -24410,12 +24484,12 @@ paths:
                   description: The contents of the pull request.
                 maintainer_can_modify:
                   type: boolean
-                  description: Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/)
+                  description: Indicates whether [maintainers can modify](https://docs.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/)
                     the pull request.
                 draft:
                   type: boolean
                   description: Indicates whether the pull request is a draft. See
-                    "[Draft Pull Requests](https://help.github.com/en/articles/about-pull-requests#draft-pull-requests)"
+                    "[Draft Pull Requests](https://docs.github.com/en/articles/about-pull-requests#draft-pull-requests)"
                     in the GitHub Help documentation to learn more.
                 issue:
                   type: integer
@@ -24869,7 +24943,7 @@ paths:
     get:
       summary: Get a pull request
       description: |-
-        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         Lists details of a pull request by providing its number.
 
@@ -24879,9 +24953,9 @@ paths:
 
         The value of the `merge_commit_sha` attribute changes depending on the state of the pull request. Before merging a pull request, the `merge_commit_sha` attribute holds the SHA of the _test_ merge commit. After merging a pull request, the `merge_commit_sha` attribute changes depending on how you merged the pull request:
 
-        *   If merged as a [merge commit](https://help.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.
-        *   If merged via a [squash](https://help.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.
-        *   If [rebased](https://help.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.
+        *   If merged as a [merge commit](https://docs.github.com/articles/about-merge-methods-on-github/), `merge_commit_sha` represents the SHA of the merge commit.
+        *   If merged via a [squash](https://docs.github.com/articles/about-merge-methods-on-github/#squashing-your-merge-commits), `merge_commit_sha` represents the SHA of the squashed commit on the base branch.
+        *   If [rebased](https://docs.github.com/articles/about-merge-methods-on-github/#rebasing-and-merging-your-commits), `merge_commit_sha` represents the commit that the base branch was updated to.
 
         Pass the appropriate [media type](https://docs.github.com/enterprise-server@3.0/rest/overview/media-types/#commits-commit-comparison-and-pull-requests) to fetch diff and patch formats.
       tags:
@@ -24919,7 +24993,7 @@ paths:
     patch:
       summary: Update a pull request
       description: |-
-        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Draft pull requests are available in public repositories with GitHub Free and GitHub Free for organizations, GitHub Pro, and legacy per-repository billing plans, and in public and private repositories with GitHub Team and GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To open or update a pull request in a public repository, you must have write access to the head or the source branch. For organization-owned repositories, you must be a member of the organization that owns the repository to open or update a pull request.
       tags:
@@ -24959,7 +25033,7 @@ paths:
                     another repository.
                 maintainer_can_modify:
                   type: boolean
-                  description: Indicates whether [maintainers can modify](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/)
+                  description: Indicates whether [maintainers can modify](https://docs.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/)
                     the pull request.
             example:
               title: new title
@@ -25119,7 +25193,7 @@ paths:
                     or unchanged lines that appear in white and are shown for context.
                     For a multi-line comment, side represents whether the last line
                     of the comment range is a deletion or addition. For more information,
-                    see "[Diff view options](https://help.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)"
+                    see "[Diff view options](https://docs.github.com/en/articles/about-comparing-branches-in-pull-requests#diff-view-options)"
                     in the GitHub Help documentation.'
                   enum:
                   - LEFT
@@ -25136,7 +25210,7 @@ paths:
                     multi-line comments, you must use the `comfort-fade` preview header.
                     The `start_line` is the first line in the pull request diff that
                     your multi-line comment applies to. To learn more about multi-line
-                    comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)"
+                    comments, see "[Commenting on a pull request](https://docs.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)"
                     in the GitHub Help documentation.'
                 start_side:
                   type: string
@@ -25144,7 +25218,7 @@ paths:
                     multi-line comments, you must use the `comfort-fade` preview header.
                     The `start_side` is the starting side of the diff that the comment
                     applies to. Can be `LEFT` or `RIGHT`. To learn more about multi-line
-                    comments, see "[Commenting on a pull request](https://help.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)"
+                    comments, see "[Commenting on a pull request](https://docs.github.com/en/articles/commenting-on-a-pull-request#adding-line-comments-to-a-pull-request)"
                     in the GitHub Help documentation. See `side` in this table for
                     additional context.'
                   enum:
@@ -27397,7 +27471,7 @@ paths:
         transferring a personal repository to another user. The response will contain
         the original `owner`, and the transfer will continue asynchronously. For more
         details on the requirements to transfer personal and organization-owned repositories,
-        see [about repository transfers](https://help.github.com/articles/about-repository-transfers/).
+        see [about repository transfers](https://docs.github.com/articles/about-repository-transfers/).
       tags:
       - repos
       operationId: repos/transfer
@@ -27666,7 +27740,7 @@ paths:
           Qualifiers allow you to limit your search to specific areas of GitHub. The
           REST API supports the same qualifiers as GitHub.com. To learn more about
           the format of the query, see [Constructing a search query](https://docs.github.com/enterprise-server@3.0/rest/reference/search#constructing-a-search-query).
-          See "[Searching code](https://help.github.com/articles/searching-code/)"
+          See "[Searching code](https://docs.github.com/articles/searching-code/)"
           for a detailed list of qualifiers.
         in: query
         required: true
@@ -27745,7 +27819,7 @@ paths:
           Qualifiers allow you to limit your search to specific areas of GitHub. The
           REST API supports the same qualifiers as GitHub.com. To learn more about
           the format of the query, see [Constructing a search query](https://docs.github.com/enterprise-server@3.0/rest/reference/search#constructing-a-search-query).
-          See "[Searching commits](https://help.github.com/articles/searching-commits/)"
+          See "[Searching commits](https://docs.github.com/articles/searching-commits/)"
           for a detailed list of qualifiers.
         in: query
         required: true
@@ -27831,7 +27905,7 @@ paths:
           Qualifiers allow you to limit your search to specific areas of GitHub. The
           REST API supports the same qualifiers as GitHub.com. To learn more about
           the format of the query, see [Constructing a search query](https://docs.github.com/enterprise-server@3.0/rest/reference/search#constructing-a-search-query).
-          See "[Searching issues and pull requests](https://help.github.com/articles/searching-issues-and-pull-requests/)"
+          See "[Searching issues and pull requests](https://docs.github.com/articles/searching-issues-and-pull-requests/)"
           for a detailed list of qualifiers.
         in: query
         required: true
@@ -28010,7 +28084,7 @@ paths:
           Qualifiers allow you to limit your search to specific areas of GitHub. The
           REST API supports the same qualifiers as GitHub.com. To learn more about
           the format of the query, see [Constructing a search query](https://docs.github.com/enterprise-server@3.0/rest/reference/search#constructing-a-search-query).
-          See "[Searching for repositories](https://help.github.com/articles/searching-for-repositories/)"
+          See "[Searching for repositories](https://docs.github.com/articles/searching-for-repositories/)"
           for a detailed list of qualifiers.
         in: query
         required: true
@@ -28077,7 +28151,7 @@ paths:
     get:
       summary: Search topics
       description: |-
-        Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://help.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
+        Find topics via various criteria. Results are sorted by best match. This method returns up to 100 results [per page](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#pagination). See "[Searching topics](https://docs.github.com/articles/searching-topics/)" for a detailed list of qualifiers.
 
         When searching for topics, you can get text match metadata for the topic's **short\_description**, **description**, **name**, or **display\_name** field when you pass the `text-match` media type. For more details about how to receive highlighted search results, see [Text match metadata](https://docs.github.com/enterprise-server@3.0/rest/reference/search#text-match-metadata).
 
@@ -28168,7 +28242,7 @@ paths:
           Qualifiers allow you to limit your search to specific areas of GitHub. The
           REST API supports the same qualifiers as GitHub.com. To learn more about
           the format of the query, see [Constructing a search query](https://docs.github.com/enterprise-server@3.0/rest/reference/search#constructing-a-search-query).
-          See "[Searching users](https://help.github.com/articles/searching-users/)"
+          See "[Searching users](https://docs.github.com/articles/searching-users/)"
           for a detailed list of qualifiers.
         in: query
         required: true
@@ -29631,11 +29705,11 @@ paths:
 
         We recommend using the [Add or update team membership for a user](https://docs.github.com/enterprise-server@3.0/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint instead. It allows you to invite new organization members to your teams.
 
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To add someone to a team, the authenticated user must be an organization owner or a team maintainer in the team they're changing. The person being added to the team must be a member of the team's organization.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
 
         Note that you'll need to set `Content-Length` to zero when calling out to this endpoint. For more information, see "[HTTP verbs](https://docs.github.com/enterprise-server@3.0/rest/overview/resources-in-the-rest-api#http-verbs)."
       tags:
@@ -29673,11 +29747,11 @@ paths:
 
         We recommend using the [Remove team membership for a user](https://docs.github.com/enterprise-server@3.0/rest/reference/teams#remove-team-membership-for-a-user) endpoint instead. It allows you to remove both active and pending memberships.
 
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To remove a team member, the authenticated user must have 'admin' permissions to the team or be an owner of the org that the team is associated with. Removing a team member does not delete the user, it just removes them from the team.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
       tags:
       - teams
       operationId: teams/remove-member-legacy
@@ -29748,11 +29822,11 @@ paths:
       description: |-
         **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Add or update team membership for a user](https://docs.github.com/enterprise-server@3.0/rest/reference/teams#add-or-update-team-membership-for-a-user) endpoint.
 
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         If the user is already a member of the team's organization, this endpoint will add the user to the team. To add a membership between an organization member and a team, the authenticated user must be an organization owner or a team maintainer.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
 
         If the user is unaffiliated with the team's organization, this endpoint will send an invitation to the user via email. This newly-created membership will be in the "pending" state until the user accepts the invitation, at which point the membership will transition to the "active" state and the user will be added as a member of the team. To add a membership between an unaffiliated user and a team, the authenticated user must be an organization owner.
 
@@ -29814,11 +29888,11 @@ paths:
       description: |-
         **Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [Remove team membership for a user](https://docs.github.com/enterprise-server@3.0/rest/reference/teams#remove-team-membership-for-a-user) endpoint.
 
-        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
+        Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://docs.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.
 
         To remove a membership between a user and a team, the authenticated user must have 'admin' permissions to the team or be an owner of the organization that the team is associated with. Removing team membership does not delete the user, it just removes their membership from the team.
 
-        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://help.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
+        **Note:** When you have team synchronization set up for a team with your organization's identity provider (IdP), you will see an error if you attempt to use the API for making changes to the team's membership. If you have access to manage group membership in your IdP, you can manage GitHub Enterprise Server team membership through your identity provider, which automatically adds and removes team members in an organization. For more information, see "[Synchronizing teams between your identity provider and GitHub Enterprise Server](https://docs.github.com/articles/synchronizing-teams-between-your-identity-provider-and-github/)."
       tags:
       - teams
       operationId: teams/remove-membership-for-user-legacy
@@ -32637,7 +32711,7 @@ paths:
     get:
       summary: List organizations for a user
       description: |-
-        List [public organization memberships](https://help.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
+        List [public organization memberships](https://docs.github.com/articles/publicizing-or-concealing-organization-membership) for the specified user.
 
         This method only lists _public_ memberships, regardless of authentication. If you need to fetch all of the organization memberships (public and private) for the authenticated user, use the [List organizations for the authenticated user](https://docs.github.com/enterprise-server@3.0/rest/reference/orgs#list-organizations-for-the-authenticated-user) API instead.
       tags:
@@ -32981,7 +33055,7 @@ paths:
     put:
       summary: Suspend a user
       description: |-
-        If your GitHub instance uses [LDAP Sync with Active Directory LDAP servers](https://help.github.com/enterprise/admin/guides/user-management/using-ldap), Active Directory LDAP-authenticated users cannot be suspended through this API. If you attempt to suspend an Active Directory LDAP-authenticated user through this API, it will return a `403` response.
+        If your GitHub instance uses [LDAP Sync with Active Directory LDAP servers](https://docs.github.com/enterprise/admin/guides/user-management/using-ldap), Active Directory LDAP-authenticated users cannot be suspended through this API. If you attempt to suspend an Active Directory LDAP-authenticated user through this API, it will return a `403` response.
 
         You can suspend any user account except your own.
 
@@ -33007,7 +33081,7 @@ paths:
                 reason:
                   type: string
                   description: The reason the user is being suspended. This message
-                    will be logged in the [audit log](https://help.github.com/enterprise/admin/articles/audit-logging/).
+                    will be logged in the [audit log](https://docs.github.com/enterprise/admin/articles/audit-logging/).
                     If you don't provide a `reason`, it will default to "Suspended
                     via API by _SITE\_ADMINISTRATOR_", where _SITE\_ADMINISTRATOR_
                     is the person who performed the action.
@@ -33019,7 +33093,7 @@ paths:
     delete:
       summary: Unsuspend a user
       description: If your GitHub instance uses [LDAP Sync with Active Directory LDAP
-        servers](https://help.github.com/enterprise/admin/guides/user-management/using-ldap),
+        servers](https://docs.github.com/enterprise/admin/guides/user-management/using-ldap),
         this API is disabled and will return a `403` response. Active Directory LDAP-authenticated
         users cannot be unsuspended using the API.
       operationId: enterprise-admin/unsuspend-user
@@ -33043,7 +33117,7 @@ paths:
                 reason:
                   type: string
                   description: The reason the user is being unsuspended. This message
-                    will be logged in the [audit log](https://help.github.com/enterprise/admin/articles/audit-logging/).
+                    will be logged in the [audit log](https://docs.github.com/enterprise/admin/articles/audit-logging/).
                     If you don't provide a `reason`, it will default to "Unsuspended
                     via API by _SITE\_ADMINISTRATOR_", where _SITE\_ADMINISTRATOR_
                     is the person who performed the action.
@@ -33392,7 +33466,7 @@ components:
       name: event
       description: Returns workflow run triggered by the event you specify. For example,
         `push`, `pull_request` or `issue`. For more information, see "[Events that
-        trigger workflows](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)."
+        trigger workflows](https://docs.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows)."
       in: query
       required: false
       schema:
@@ -33424,6 +33498,8 @@ components:
         - waiting
     created:
       name: created
+      description: Returns workflow runs created within the given date-time range.
+        For more information on the syntax, see "[Understanding the search syntax](https://docs.github.com/enterprise-server@3.0/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax#query-for-dates)."
       in: query
       required: false
       schema:
@@ -34268,14 +34344,6 @@ components:
           enum:
           - read
           - write
-        content_references:
-          type: string
-          description: 'The level of permission to grant the access token for notification
-            of content references and creation content attachments. Can be one of:
-            `read` or `write`.'
-          enum:
-          - read
-          - write
         contents:
           type: string
           description: 'The level of permission to grant the access token for repository
@@ -34472,6 +34540,14 @@ components:
           type: string
           description: 'The level of permission to grant the access token to manage
             team discussions and related comments. Can be one of: `read` or `write`.'
+          enum:
+          - read
+          - write
+        content_references:
+          type: string
+          description: 'The level of permission to grant the access token for notification
+            of content references and creation content attachments. Can be one of:
+            `read` or `write`.'
           enum:
           - read
           - write
@@ -36228,6 +36304,26 @@ components:
       - allows_public_repositories
       - default
       - runners_url
+    runner-label:
+      title: Self hosted runner label
+      description: A label for a self hosted runner
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the label.
+        name:
+          type: string
+          description: Name of the label.
+        type:
+          type: string
+          description: The type of label. Read-only labels are applied automatically
+            when the runner is configured.
+          enum:
+          - read-only
+          - custom
+      required:
+      - name
     runner:
       title: Self hosted runners
       description: A self hosted runner
@@ -36254,21 +36350,7 @@ components:
         labels:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: Unique identifier of the label.
-              name:
-                type: string
-                description: Name of the label.
-              type:
-                type: string
-                description: The type of label. Read-only labels are applied automatically
-                  when the runner is configured.
-                enum:
-                - read-only
-                - custom
+            "$ref": "#/components/schemas/runner-label"
       required:
       - id
       - name
@@ -38872,6 +38954,10 @@ components:
         members_can_create_private_pages:
           type: boolean
           example: true
+        members_can_fork_private_repositories:
+          type: boolean
+          example: false
+          nullable: true
         updated_at:
           type: string
           format: date-time
@@ -41036,7 +41122,7 @@ components:
           example: master
         head_sha:
           description: The SHA of the head commit that points to the version of the
-            worflow being run.
+            workflow being run.
           example: '009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d'
           type: string
         run_number:
@@ -41230,6 +41316,25 @@ components:
       - badge_url
       - created_at
       - updated_at
+    protected-branch-required-status-check:
+      title: Protected Branch Required Status Check
+      description: Protected Branch Required Status Check
+      type: object
+      properties:
+        url:
+          type: string
+        enforcement_level:
+          type: string
+        contexts:
+          type: array
+          items:
+            type: string
+        contexts_url:
+          type: string
+        strict:
+          type: boolean
+      required:
+      - contexts
     protected-branch-admin-enforced:
       title: Protected Branch Admin Enforced
       description: Protected Branch Admin Enforced
@@ -41495,22 +41600,7 @@ components:
         enabled:
           type: boolean
         required_status_checks:
-          type: object
-          properties:
-            url:
-              type: string
-            enforcement_level:
-              type: string
-            contexts:
-              type: array
-              items:
-                type: string
-            contexts_url:
-              type: string
-            strict:
-              type: boolean
-          required:
-          - contexts
+          "$ref": "#/components/schemas/protected-branch-required-status-check"
         enforce_admins:
           "$ref": "#/components/schemas/protected-branch-admin-enforced"
         required_pull_request_reviews:
@@ -42322,6 +42412,10 @@ components:
           type: integer
         check_runs_url:
           type: string
+        rerequestable:
+          type: boolean
+        runs_rerequestable:
+          type: boolean
       required:
       - id
       - node_id
@@ -46424,6 +46518,41 @@ components:
       - created_at
       - performed_via_github_app
       - assignee
+    state-change-issue-event:
+      title: State Change Issue Event
+      description: State Change Issue Event
+      type: object
+      properties:
+        id:
+          type: integer
+        node_id:
+          type: string
+        url:
+          type: string
+        actor:
+          "$ref": "#/components/schemas/simple-user"
+        event:
+          type: string
+        commit_id:
+          type: string
+          nullable: true
+        commit_url:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+        performed_via_github_app:
+          "$ref": "#/components/schemas/nullable-integration"
+      required:
+      - id
+      - node_id
+      - url
+      - actor
+      - event
+      - commit_id
+      - commit_url
+      - created_at
+      - performed_via_github_app
     timeline-issue-events:
       title: Timeline Event
       description: Timeline Event
@@ -46450,6 +46579,7 @@ components:
       - "$ref": "#/components/schemas/timeline-commit-commented-event"
       - "$ref": "#/components/schemas/timeline-assigned-issue-event"
       - "$ref": "#/components/schemas/timeline-unassigned-issue-event"
+      - "$ref": "#/components/schemas/state-change-issue-event"
     deploy-key:
       title: Deploy Key
       description: An SSH key granting access to a single repository.
@@ -52342,6 +52472,7 @@ components:
         members_can_create_private_repositories: false
         members_can_create_internal_repositories: false
         members_can_create_pages: true
+        members_can_fork_private_repositories: false
     organization-full:
       value:
         login: github
@@ -52392,6 +52523,7 @@ components:
         members_can_create_pages: true
         members_can_create_public_pages: true
         members_can_create_private_pages: true
+        members_can_fork_private_repositories: false
         updated_at: '2014-03-03T18:58:10Z'
     actions-organization-permissions:
       value:
@@ -54080,9 +54212,11 @@ components:
           created_at: '2011-01-26T19:01:12Z'
           updated_at: '2011-01-26T19:14:43Z'
           permissions:
-            admin: false
-            push: false
             pull: true
+            triage: false
+            push: false
+            maintain: false
+            admin: false
           allow_rebase_merge: true
           temp_clone_token: ABTLWHOULUVAXGTRYU7OC2876QJ2O
           allow_squash_merge: true
@@ -56045,7 +56179,6 @@ components:
         run_number: 562
         event: push
         status: queued
-        conclusion: 
         workflow_id: 159038
         url: https://api.github.com/repos/octo-org/octo-repo/actions/runs/30433642
         html_url: https://github.com/octo-org/octo-repo/actions/runs/30433642
@@ -57510,7 +57643,6 @@ components:
         rule:
           id: js/zipslip
           severity: error
-          security_severity_level: high
           description: Arbitrary file write during zip extraction ("Zip Slip")
           name: js/zipslip
           full_description: Extracting files from a malicious zip archive without
@@ -57575,7 +57707,6 @@ components:
         rule:
           id: js/zipslip
           severity: error
-          security_severity_level: high
           description: Arbitrary file write during zip extraction ("Zip Slip")
           name: js/zipslip
           full_description: Extracting files from a malicious zip archive without
@@ -64332,9 +64463,11 @@ components:
           created_at: '2011-01-26T19:01:12Z'
           updated_at: '2011-01-26T19:14:43Z'
           permissions:
-            admin: false
-            push: false
             pull: true
+            triage: false
+            push: false
+            maintain: false
+            admin: false
           allow_rebase_merge: true
           temp_clone_token: ABTLWHOULUVAXGTRYU7OC2876QJ2O
           allow_squash_merge: true
@@ -65399,6 +65532,12 @@ components:
         application/json:
           schema:
             "$ref": "#/components/schemas/basic-error"
+    internal_error:
+      description: Internal Error
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/basic-error"
     code_scanning_forbidden_read:
       description: Response if GitHub Advanced Security is not enabled for this repository
       content:
@@ -65408,12 +65547,6 @@ components:
     code_scanning_forbidden_write:
       description: Response if the repository is archived or if github advanced security
         is not enabled for this repository
-      content:
-        application/json:
-          schema:
-            "$ref": "#/components/schemas/basic-error"
-    internal_error:
-      description: Internal Error
       content:
         application/json:
           schema:
